@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Variables</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<main>
+    <div name="person-create">
+        <input type="text" class="form-control" id="person-login"/>
+        <input type="text" class="form-control" id="person-pass"/>
+        <input type="text" class="form-control" id="person-pass2"/>
+        <input type="text" class="form-control" id="person-first-name"/>
+        <input type="text" class="form-control" id="person-last-name"/>
+        <input type="text" class="form-control" id="person-patronymic"/>
+        <input type="text" class="form-control" id="person-email"/>
+        <input type="text" class="form-control" id="person-phone"/>
+        <input type="date" class="form-control" id="person-birth-date"/>
+        <input type="text" class="form-control" id="person-init-balance"/>
+        <button id="submit">submit</button>
+    </div>
+</main>
+<script>
+
+    document.getElementById("submit").addEventListener('click', ()=>{
+        if(document.getElementById("person-pass").value !== document.getElementById("person-pass2").value){
+            alert("Пароли не совпадают!");
+            return;
+        }
+        fetch("http://localhost:8080/createnewuser", {
+            method: "POST",
+            body: JSON.stringify({
+                login: document.getElementById("person-login").value,
+                password: document.getElementById("person-pass").value,
+                firstName: document.getElementById("person-first-name").value,
+                lastName: document.getElementById("person-last-name").value,
+                patronymic: document.getElementById("person-patronymic").value,
+                email: document.getElementById("person-email").value,
+                phone: document.getElementById("person-phone").value, // Валидация на фронте и беке
+                birthDate: Date.parse(document.getElementById("person-birth-date").value)/1000,
+                initBalance: document.getElementById("person-init-balance").value,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+    })
+</script>
+</body>
+</html>
