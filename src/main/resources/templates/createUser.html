@@ -3,20 +3,51 @@
 <head>
     <title>Thymeleaf Variables</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
 </head>
 <body>
 <main>
-    <div name="person-create">
-        <input type="text" class="form-control" id="person-login"/>
-        <input type="text" class="form-control" id="person-pass"/>
-        <input type="text" class="form-control" id="person-pass2"/>
-        <input type="text" class="form-control" id="person-first-name"/>
-        <input type="text" class="form-control" id="person-last-name"/>
-        <input type="text" class="form-control" id="person-patronymic"/>
-        <input type="text" class="form-control" id="person-email"/>
-        <input type="text" class="form-control" id="person-phone"/>
-        <input type="date" class="form-control" id="person-birth-date"/>
-        <input type="text" class="form-control" id="person-init-balance"/>
+    <div name="person-create" class="form-wrapper">
+        <div>
+            <label>Логин</label>
+            <input type="text" class="form-control" id="person-login"/>
+        </div>
+        <div>
+            <label>Пароль</label>
+            <input type="text" class="form-control" id="person-pass"/>
+        </div>
+        <div>
+            <label>Повтор пароля</label>
+            <input type="text" class="form-control" id="person-pass2"/>
+        </div>
+        <div>
+            <label>Имя</label>
+            <input type="text" class="form-control" id="person-first-name"/>
+        </div>
+        <div>
+            <label>Фамилия</label>
+            <input type="text" class="form-control" id="person-last-name"/>
+        </div>
+        <div>
+            <label>Отчествно (не обязательно)</label>
+            <input type="text" class="form-control" id="person-patronymic"/>
+        </div>
+        <div>
+            <label>Email(no limit front/back)</label>
+            <input type="text" class="form-control" id="person-email"/>
+        </div>
+        <div>
+            <label>Номер тел(no limit front/back)</label>
+            <input type="text" class="form-control" id="person-phone"/>
+        </div>
+        <div>
+            <label>Дата рождения(no limit front/back)</label>
+            <input type="date" class="form-control" id="person-birth-date"/>
+        </div>
+        <div>
+            <label>Стартовый баланс</label>
+            <input type="text" class="form-control" id="person-init-balance"/>
+        </div>
         <button id="submit">submit</button>
     </div>
 </main>
@@ -27,7 +58,7 @@
             alert("Пароли не совпадают!");
             return;
         }
-        fetch("http://localhost:8080/createnewuser", {
+        fetch("http://localhost:8080/new-user", {
             method: "POST",
             body: JSON.stringify({
                 login: document.getElementById("person-login").value,
@@ -37,7 +68,7 @@
                 patronymic: document.getElementById("person-patronymic").value,
                 email: document.getElementById("person-email").value,
                 phone: document.getElementById("person-phone").value, // Валидация на фронте и беке
-                birthDate: Date.parse(document.getElementById("person-birth-date").value)/1000,
+                birthDate: Date.parse(document.getElementById("person-birth-date").value),
                 initBalance: document.getElementById("person-init-balance").value,
             }),
             headers: {

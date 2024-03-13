@@ -1,10 +1,12 @@
 package ru.strid.testingtask.controllers;
 
+import jakarta.annotation.security.PermitAll;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,14 +34,14 @@ public class CreateNewUserController {
     private PersonService personService;
 
 
-    @GetMapping("/newuser")
+    @GetMapping("/new-user")
     public ModelAndView createNew(final Map<String, Object> model){
         model.put("person", new Person());
         return new ModelAndView("createUser.html", model);
     }
-
+    
     @PostMapping(
-            path     = "/createnewuser",
+            path     = "/new-user",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -58,6 +60,11 @@ public class CreateNewUserController {
                 data.get("initBalance").toString()
         );
         return new ResponseEntity("Все ок", HttpStatus.OK);
+    }
+
+    @GetMapping("/home")
+    public ModelAndView home(final Map<String, Object> model){
+        return new ModelAndView("home.html");
     }
 
 }

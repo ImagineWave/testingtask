@@ -68,6 +68,10 @@ public class Person {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
+    public String getPassword(){
+        return this.password;
+    }
+
     public String getFirstName() {
         return firstName;
     }
