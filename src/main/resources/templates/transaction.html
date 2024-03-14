@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <div name="person-create" class="form-wrapper">
+        <div>
+            <label>Нормер счета получателя</label>
+            <input type="text" class="form-control" id="receiver-number"/>
+        </div>
+        <div>
+            <label>Ваш баланс</label>
+            <label th:text="${balance}" id="balance"/>
+        </div>
+        <div>
+            <label>Количество</label>
+            <input type="text" class="form-control" id="amount"/>
+        </div>
+        <button id="submit">submit</button>
+    </div>
+    <script>
+
+        document.getElementById("submit").addEventListener('click', ()=>{
+            alert(Number(document.getElementById("balance").innerText)+" "+Number(document.getElementById("amount").value));
+            if( Number(document.getElementById("balance").innerText)  < Number(document.getElementById("amount").value) ){
+                alert("Вы не можете отправить больше, чем у вас есть (на беке тоже)");
+                return;
+            }
+            fetch("http://localhost:8080/transaction", {
+                method: "POST",
+                body: JSON.stringify({
+                    receiverNumber: document.getElementById("receiver-number").value,
+                    amount: document.getElementById("amount").value,
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
+        })
+    </script>
+</body>
+</html>

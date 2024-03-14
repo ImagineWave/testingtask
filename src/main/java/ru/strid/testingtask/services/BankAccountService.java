@@ -39,6 +39,9 @@ public class BankAccountService {
     public Transaction createTransaction(int amount, String receiverAccountNumber, String senderAccountNumber){
         BankAccount receiver = bankAccountRepo.findFirstByAccountNumber(receiverAccountNumber);
         BankAccount sender = bankAccountRepo.findFirstByAccountNumber(senderAccountNumber);
+        if(sender.getAccountNumber().equals(receiver.getAccountNumber())){
+            throw new RuntimeException("Номер получателя и отправителя совпадают!");
+        }
 
         Transaction transaction = new Transaction(amount, receiver.getAccountNumber(), sender.getAccountNumber());
         if(sender.getBalance()-amount<0){

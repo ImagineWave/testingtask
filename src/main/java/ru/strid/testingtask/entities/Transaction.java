@@ -30,6 +30,7 @@ public class Transaction {
         this.transactionId = UUID.randomUUID().toString();
         this.receiverAccountNo = receiverAccountNo;
         this.amount = amount;
+        this.createdAt = System.currentTimeMillis();
     }
 
     public Transaction(int amount, String receiverAccountNo, String senderAccountNo){
@@ -37,6 +38,7 @@ public class Transaction {
         this.receiverAccountNo = receiverAccountNo;
         this.senderAccountNo = senderAccountNo;
         this.amount = amount;
+        this.createdAt = System.currentTimeMillis();
     }
 
     public Transaction(){
