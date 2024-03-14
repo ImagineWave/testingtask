@@ -16,4 +16,6 @@ public interface BankAccountRepository extends JpaRepository<BankAccount, Intege
 
     public BankAccount findFirstByAccountNumber(final String accountNumber);
 
+    public BankAccount findFirstByPersonId(final Integer personId);
+
 }

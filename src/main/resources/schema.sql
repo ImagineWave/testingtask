@@ -30,5 +30,6 @@ CREATE TABLE IF NOT EXISTS transaction (
     transaction_id VARCHAR(256) PRIMARY KEY,                   -- идентификатор транзакции (UUID)
     receiver_account_no VARCHAR(256) NOT NULL,                 -- номер счета получателя
     sender_account_no VARCHAR(256),                            -- номер счета отправителя (null, если отправитель банк)
-    amount BIGINT NOT NULL                                     -- количество средств
+    amount BIGINT NOT NULL CHECK (amount >= 0),                -- количество средств
+    created_at BIGINT NOT NULL                                 -- дата транзакции (timestamp)
 );

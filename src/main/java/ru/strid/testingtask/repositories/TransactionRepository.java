@@ -10,5 +10,6 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
     public List<Transaction> findAllBySenderAccountNo(final String login);
+
     public List<Transaction> findAllByReceiverAccountNo(final String login);
 }
