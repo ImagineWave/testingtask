@@ -32,14 +32,14 @@ public class AppSecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth.requestMatchers("/new-user").permitAll()
 
-                        .requestMatchers("/home", "/transaction").authenticated())
+                        .requestMatchers("/home", "/transaction","/find-form","/find/**","/find-email/**","/find-phone/**").authenticated())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
     }
 
     @Bean
     WebSecurityCustomizer configureWebSecurity() {
-        return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/css/**", "/webjars/**");
+        return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/css/**", "/webjars/**","/favicon.ico");
     }
 
     @Bean

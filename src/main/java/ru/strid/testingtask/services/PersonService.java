@@ -46,6 +46,13 @@ public class PersonService {
         Sort sort = Sort.by("login").ascending();
         return this.personRepo.findAll(PageRequest.of(page, count, sort)).getContent();
     }
+    public List<Person> listWithSeek(final int page, final int count, String seek) {
+        if(seek != null) {
+            Sort sort = Sort.by("login").ascending();
+            return this.personRepo.findAllByFirstNameStartsWithOrLastNameStartsWithOrPatronymicStartsWith(PageRequest.of(page, count, sort), seek, seek, seek).getContent();
+        }
+        return list(page, count);
+    }
 
     public List<Person> list() {
         return this.list(DEFAULT_PAGE, DEFAULT_COUNT);
@@ -71,12 +78,20 @@ public class PersonService {
     }
 
 //    Найти пользвоателя по Email
+
+
     public Person findByEmail(String emailAddress){
-        return find(emailService.find(emailAddress).getPersonId());
+        if(emailService.find(emailAddress) != null){  //TODO Заменить на optional если будет время
+            return find(emailService.find(emailAddress).getPersonId());
+        }
+        return null;
     }
 
     public Person findByPhone(String phoneNumber){
-        return find(phoneService.find(phoneNumber).getPersonId());
+        if(phoneService.find(phoneNumber) != null){ //TODO Заменить на optional если будет время
+            return find(phoneService.find(phoneNumber).getPersonId());
+        }
+        return null;
     }
 
     @Transactional

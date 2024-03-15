@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Поиск пользователей</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+    <div name="find-person" class="form-wrapper">
+        <div>
+            <form action="/find" method="get">
+                <label for="person-first-name">Имя:</label>
+                <input type="text" id="person-first-name" name="firstName"><br><br>
+                <label for="person-last-name">Фамилия:</label>
+                <input type="text" id="person-last-name" name="lastName"><br><br>
+                <label for="person-patronymic">Отчество:</label>
+                <input type="text" id="person-patronymic" name="patronymic"/><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div>
+            <label>Email(no limit front/back)</label>
+            <input type="text" class="form-control" id="person-email"/>
+        </div>
+        <div>
+            <label>Номер тел(no limit front/back)</label>
+            <input type="text" class="form-control" id="person-phone"/>
+        </div>
+        <div>
+            <label>Дата рождения(no limit front/back)</label>
+            <input type="date" class="form-control" id="person-birth-date"/>
+        </div>
+
+    </div>
+</body>
+</html>

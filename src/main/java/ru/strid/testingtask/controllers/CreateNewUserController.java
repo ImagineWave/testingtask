@@ -24,9 +24,8 @@ public class CreateNewUserController {
 
 
     @GetMapping("/new-user")
-    public ModelAndView createNew(final Map<String, Object> model){
-        model.put("person", new Person());
-        return new ModelAndView("createUser.html", model);
+    public ModelAndView createNew(){
+        return new ModelAndView("createUser.html");
     }
     
     @PostMapping(

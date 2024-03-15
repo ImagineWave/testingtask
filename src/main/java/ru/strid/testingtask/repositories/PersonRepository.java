@@ -3,6 +3,8 @@ package ru.strid.testingtask.repositories;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.strid.testingtask.entities.Person;
 
@@ -13,8 +15,12 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     // возвращает всех пользователей
     public List<Person> findAll();
 
+    public Page<Person> findAllByFirstNameStartsWithOrLastNameStartsWithOrPatronymicStartsWith(final Pageable pageable, String seekFN, String seekLN, String seekP);
+
     // возвращает всех пользователей по заданным параметрам сортировки
     public Page<Person> findAll(final Pageable pageable);
+
+
 
     // возвращает пользователя по заданному логину
     public Person findFirstByLogin(final String login);
