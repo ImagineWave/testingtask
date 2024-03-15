@@ -23,7 +23,7 @@ public class BankAccount {
     @Column(name = "balance")
     private Integer balance;
 
-    //TODO В зависмости от ответа, добавить или не добавлять flag лимитер вкладов
+    //TODO В зависмости от ответа, добавить или не добавлять flag лимитер вкладов PS: ответа на свой попрос я не получил
 
     public BankAccount(int personId, int initBalance){
         this.bankAccountId = null;
