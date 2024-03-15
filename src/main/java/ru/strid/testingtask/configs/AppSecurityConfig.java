@@ -30,7 +30,7 @@ public class AppSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(auth -> auth.requestMatchers("/new-user").permitAll()
+        .authorizeHttpRequests(auth -> auth.requestMatchers("/new-user","/swagger-ui/**","/v3/**").permitAll()
 
                         .requestMatchers("/home", "/transaction","/find-form","/find/**","/find-email/**","/find-phone/**").authenticated())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
