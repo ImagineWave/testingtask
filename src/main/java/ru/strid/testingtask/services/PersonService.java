@@ -1,7 +1,6 @@
 package ru.strid.testingtask.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -10,9 +9,7 @@ import ru.strid.testingtask.entities.BankAccount;
 import ru.strid.testingtask.entities.Email;
 import ru.strid.testingtask.entities.Person;
 import ru.strid.testingtask.entities.Phone;
-import ru.strid.testingtask.repositories.EmailRepository;
 import ru.strid.testingtask.repositories.PersonRepository;
-import ru.strid.testingtask.repositories.PhoneRepository;
 
 import java.util.Date;
 import java.util.List;

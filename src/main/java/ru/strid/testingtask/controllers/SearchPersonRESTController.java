@@ -1,7 +1,5 @@
 package ru.strid.testingtask.controllers;
 
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import ru.strid.testingtask.entities.Person;
 import ru.strid.testingtask.services.PersonService;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController

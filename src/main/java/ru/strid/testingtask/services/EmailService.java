@@ -22,8 +22,12 @@ public class EmailService {
         return emailRepo.findFirstByEmailAddress(emailAddress);
     }
 
-    public long count() {
-        return this.emailRepo.count();
+    public long count(int personId) {
+        return this.emailRepo.countByPersonId(personId);
+    }
+
+    public void kill(final Integer id){
+        this.emailRepo.deleteById(id);
     }
 
 

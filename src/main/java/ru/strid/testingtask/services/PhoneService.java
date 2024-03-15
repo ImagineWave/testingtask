@@ -19,5 +19,13 @@ public class PhoneService {
         return phoneRepo.findFirstByPhoneNumber(phoneNumber);
     }
 
+    public long count(int personId) {
+        return this.phoneRepo.countByPersonId(personId);
+    }
+
+    public void kill(final Integer id){
+        this.phoneRepo.deleteById(id);
+    }
+
 
 }

@@ -1,12 +1,9 @@
 package ru.strid.testingtask.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.strid.testingtask.entities.BankAccount;
-import ru.strid.testingtask.entities.Person;
 import ru.strid.testingtask.entities.Transaction;
 import ru.strid.testingtask.repositories.BankAccountRepository;
 

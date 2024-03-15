@@ -32,7 +32,7 @@ public class AppSecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth.requestMatchers("/new-user","/swagger-ui/**","/v3/**").permitAll()
 
-                        .requestMatchers("/home", "/transaction","/find-form","/find/**","/find-email/**","/find-phone/**").authenticated())
+                        .requestMatchers("/home", "/transaction","/find/**","/find-email/**","/find-phone/**","/person/**").authenticated())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .build();
     }

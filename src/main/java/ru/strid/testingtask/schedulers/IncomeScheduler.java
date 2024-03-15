@@ -29,7 +29,8 @@ public class IncomeScheduler {
             if(account.isGrowing()){
                 int amount = getIncomeAmount(account.getBalance(), account.getInitBalance());
                 bankAccountService.createIncomeTransaction(amount, account.getAccountNumber());
-                log.info("Начислено {} на аккаунт {}. {}/{}", amount, account.getAccountNumber(), account.getBalance()+amount, (int) Math.round(account.getInitBalance()*2.07));
+                log.info("Начислено {} на аккаунт {}. {}/{}", amount, account.getAccountNumber(),
+                        account.getBalance()+amount, (int) Math.round(account.getInitBalance()*2.07));
             }
         }
 

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
-import ru.strid.testingtask.entities.Person;
 import ru.strid.testingtask.services.PersonService;
 
 import java.util.Date;
@@ -33,6 +32,11 @@ public class CreateNewUserController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    /**
+    / Хочу отметить, что email и phone не проходят никакую верификацию, ни на фронте, ни на беке.
+     Я понимаю что она необходима, допилить ее я не успел к дедлайну
+     */
+
     public ResponseEntity handle(@RequestBody String rawPayload) {
         JSONObject data = new JSONObject(rawPayload);
         Date birthDate = new Date(Long.parseLong(data.get("birthDate").toString()));
