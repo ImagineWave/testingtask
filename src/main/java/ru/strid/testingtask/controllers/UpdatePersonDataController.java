@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.strid.testingtask.entities.Email;
 import ru.strid.testingtask.entities.Person;
@@ -30,6 +31,7 @@ public class UpdatePersonDataController {
 
     private static final Logger log = LoggerFactory.getLogger(UpdatePersonDataController.class);
 
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("/person/email/{paramEmail}")
     public ResponseEntity  createNewEmail(Principal principal, @PathVariable final Optional<String> paramEmail){
         Person person = personService.find(principal.getName());
@@ -44,12 +46,14 @@ public class UpdatePersonDataController {
        if(emailService.find(email) == null){
            Email emailToStore = new Email(email, (int) person.getPersonId());
            emailService.store(emailToStore);
+           log.info("Аккаунту {} добавлен новый Email {}", person.getLogin(), email);
            return new ResponseEntity("Добавлен новый email", HttpStatus.OK);
        }
 
         return new ResponseEntity("Email уже занят", HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/person/email/{paramEmail}")
     public ResponseEntity  deleteEmail(Principal principal, @PathVariable final Optional<String> paramEmail){
         Person person = personService.find(principal.getName());
@@ -76,9 +80,11 @@ public class UpdatePersonDataController {
         }
 
         emailService.kill(emailToDel.getEmailId());
+        log.info("У аккаунта {} удален Email {}", person.getLogin(), email);
         return new ResponseEntity("Email удален", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("/person/phone/{paramPhone}")
     public ResponseEntity  createNewPhone(Principal principal, @PathVariable final Optional<String> paramPhone){
         Person person = personService.find(principal.getName());
@@ -93,12 +99,14 @@ public class UpdatePersonDataController {
         if(phoneService.find(phone) == null){
             Phone phoneToStore = new Phone(phone, (int) person.getPersonId());
             phoneService.store(phoneToStore);
+            log.info("Аккаунту {} добавлен новый Phone {}", person.getLogin(), phone);
             return new ResponseEntity("Добавлен новый телефон", HttpStatus.OK);
         }
 
         return new ResponseEntity("Телефон уже занят", HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/person/phone/{paramPhone}")
     public ResponseEntity  deletePhone(Principal principal, @PathVariable final Optional<String> paramPhone){
         Person person = personService.find(principal.getName());
@@ -125,6 +133,7 @@ public class UpdatePersonDataController {
         }
 
         phoneService.kill((int) phoneToDel.getPhoneId());
+        log.info("У аккаунта {} удален Phone {}", person.getLogin(), phone);
         return new ResponseEntity("Телефон удален", HttpStatus.OK);
     }
 

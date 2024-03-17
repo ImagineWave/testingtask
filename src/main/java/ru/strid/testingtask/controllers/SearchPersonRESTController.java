@@ -3,6 +3,7 @@ package ru.strid.testingtask.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class SearchPersonRESTController {
     @Autowired
     private PersonService personService;
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(path = {"/find", "/find/{page}/{seek}","/find/{page}" })
     public List<Person> listAllPerson(
             @PathVariable final Optional<String> page,
@@ -42,6 +44,7 @@ public class SearchPersonRESTController {
         return list;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(path = {"/find-email/{seek}" })
     public Person listFirstPersonByEmail( @PathVariable final Optional<String> seek) {
 
@@ -51,6 +54,7 @@ public class SearchPersonRESTController {
 
         return personService.findByEmail(param);
     }
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(path = {"/find-phone/{seek}" })
     public Person listFirstPersonByPhone( @PathVariable final Optional<String> seek) {
 

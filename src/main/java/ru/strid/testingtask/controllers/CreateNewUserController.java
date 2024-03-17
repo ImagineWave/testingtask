@@ -1,6 +1,8 @@
 package ru.strid.testingtask.controllers;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
+import ru.strid.testingtask.jwt.AuthEntryPointJwt;
 import ru.strid.testingtask.services.PersonService;
 
 import java.util.Date;
@@ -18,9 +21,10 @@ import java.util.Map;
 @Controller
 public class CreateNewUserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CreateNewUserController.class);
+
     @Autowired
     private PersonService personService;
-
 
     @GetMapping("/new-user")
     public ModelAndView createNew(){
@@ -40,17 +44,24 @@ public class CreateNewUserController {
     public ResponseEntity handle(@RequestBody String rawPayload) {
         JSONObject data = new JSONObject(rawPayload);
         Date birthDate = new Date(Long.parseLong(data.get("birthDate").toString()));
-        personService.createAccount(
-                data.get("login").toString(),
-                data.get("password").toString(),
-                data.get("firstName").toString(),
-                data.get("lastName").toString(),
-                data.get("patronymic").toString(),
-                birthDate,
-                data.get("email").toString(),
-                data.get("phone").toString(),
-                data.get("initBalance").toString()
-        );
+        try{
+            personService.createAccount(
+                    data.get("login").toString(),
+                    data.get("password").toString(),
+                    data.get("firstName").toString(),
+                    data.get("lastName").toString(),
+                    data.get("patronymic").toString(),
+                    birthDate,
+                    data.get("email").toString(),
+                    data.get("phone").toString(),
+                    data.get("initBalance").toString()
+            );
+        } catch (Exception e){
+            logger.error("Unable to create account {}", e.getMessage());
+            return new ResponseEntity("Ошибка", HttpStatus.BAD_REQUEST);
+        }
+
+        logger.info("Creating new account {}", data);
         return new ResponseEntity("Все ок", HttpStatus.OK);
     }
 

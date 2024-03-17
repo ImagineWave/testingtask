@@ -1,10 +1,13 @@
 package ru.strid.testingtask.controllers;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +24,8 @@ import java.util.Map;
 @Controller
 public class TransactionController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TransactionController.class);
+
     @Autowired
     private PersonService personService;
 
@@ -30,6 +35,7 @@ public class TransactionController {
 
     @GetMapping(value = "/transaction")
     public ModelAndView currentUserName(final Map<String, Object> model, Principal principal) {
+        logger.info("Accessing transaction page {}", principal.getName());
 
         Person person = personService.find(principal.getName());
 
@@ -46,7 +52,7 @@ public class TransactionController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
 
-    public ResponseEntity handle(Principal principal, @RequestBody String rawPayload) {
+    public ResponseEntity handle(Principal principal, @RequestBody String rawPayload, String username) {
 
         JSONObject data = new JSONObject(rawPayload);
 

@@ -20,9 +20,10 @@ public class PersonDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority("USER")); // Выдача всем авторизованным роли USER (и только USER, другий роелй нет)
+        list.add(new SimpleGrantedAuthority("ROLE_USER")); // Выдача всем авторизованным роли USER (и только USER, других ролей нет)
         return list;
     }
+
 
     @Override
     public String getPassword() {
